@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 class Endpoint < ApplicationRecord
   include ContentTypeable
 
-  METHODS = %w[GET POST PUT DELETE]
-  CONTENT_TYPES = %w[application/json application/xml text/plain]
+  METHODS = %w[GET POST PUT DELETE].freeze
+  CONTENT_TYPES = %w[application/json application/xml text/plain].freeze
 
   attr_accessor :full_path
 
@@ -20,7 +22,10 @@ class Endpoint < ApplicationRecord
 
   validates :endpoint, uniqueness: { scope: %i[client method] }
 
-  validates :delay, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 5}
+  validates :delay, numericality: {
+    greater_than_or_equal_to: 0,
+    less_than_or_equal_to: 5
+  }
 
   def render_type
     content_type.split("/").last

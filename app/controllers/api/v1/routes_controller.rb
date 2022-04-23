@@ -1,12 +1,14 @@
 class Api::V1::RoutesController < ApplicationController
   def index
-    return render json: { message: "url not found" },
-      status: :not_found if endpoint.blank?
+    if endpoint.blank?
+      return render json: { message: "url not found" },
+                    status: :not_found
+    end
 
     sleep(endpoint.delay)
 
-    return render render_type => endpoint.response_body,
-      status: endpoint.status
+    render render_type => endpoint.response_body,
+           status: endpoint.status
   end
 
   private

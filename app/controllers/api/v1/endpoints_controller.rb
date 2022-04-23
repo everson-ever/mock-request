@@ -1,7 +1,20 @@
 class Api::V1::EndpointsController < ApplicationController
-
   def create
-    endpoint = Endpoint.create(
+    unless endpoint.save
+      return render json: endpoint.errors, status: :bad_request
+    end
+
+    render json: endpoint, status: :created
+  end
+
+  def update; end
+
+  def destroy; end
+
+  private
+
+  def endpoint
+    Endpoint.new(
       endpoint: endpoint_params[:endpoint],
       method: endpoint_params[:method],
       content_type: endpoint_params[:content_type],
@@ -10,19 +23,7 @@ class Api::V1::EndpointsController < ApplicationController
       response_body: endpoint_params[:response_body],
       client: client
     )
-
-    return render json: endpoint.errors, status: :bad_request if !endpoint.save
- 
-    render json: endpoint, status: :created
   end
-
-  def update
-  end
-
-  def destroy
-  end
-
-  private
 
   def endpoint_params
     params.permit(:endpoint, :method,

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ContentTypeable
   extend ActiveSupport::Concern
 
@@ -18,11 +20,9 @@ module ContentTypeable
   end
 
   def response_to_xml
-    begin
-      Nokogiri::XML(response_body) { |config| config.strict }
-    rescue Nokogiri::XML::SyntaxError => e
-      self.errors.add(:response_body, "This is not a valid xml")
-    end
+    Nokogiri::XML(response_body, &:strict)
+  rescue Nokogiri::XML::SyntaxError
+    errors.add(:response_body, "This is not a valid xml")
   end
 
   def response_to_text
