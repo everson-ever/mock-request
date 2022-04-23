@@ -25,6 +25,6 @@ class Api::V1::RoutesController < ApplicationController
   end
 
   def render_type
-    endpoint.render_type.to_sym
+    endpoint.render_type
   end
 end
