@@ -13,7 +13,7 @@ class Endpoint < ApplicationRecord
   before_validation :response_to_text, if: :text_plain?
 
   validates :endpoint, :request_method, :content_type,
-    :response_body, :client, presence: true
+    :client, presence: true
 
   validates :request_method, inclusion: { in: METHODS }
   validates :content_type, inclusion: { in: CONTENT_TYPES }
@@ -26,6 +26,6 @@ class Endpoint < ApplicationRecord
   }
 
   def render_type
-    content_type.split("/").last
+    content_type.split("/").last.to_sym
   end
 end

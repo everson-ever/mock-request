@@ -4,15 +4,15 @@ module ContentTypeable
   extend ActiveSupport::Concern
 
   def content_type_json?
-    content_type == "application/json"
+    content_type == "application/json" && response_body.present?
   end
 
   def content_type_xml?
-    content_type == "application/xml"
+    content_type == "application/xml" && response_body.present?
   end
 
   def text_plain?
-    content_type == "text/plain"
+    content_type == "text/plain" && response_body.present?
   end
 
   def response_to_json
