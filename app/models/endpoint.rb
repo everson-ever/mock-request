@@ -6,8 +6,6 @@ class Endpoint < ApplicationRecord
   METHODS = %w[GET POST PUT DELETE].freeze
   CONTENT_TYPES = %w[application/json application/xml text/plain].freeze
 
-  attr_accessor :full_path
-
   belongs_to :client
 
   before_validation :response_to_json, if: :content_type_json?
