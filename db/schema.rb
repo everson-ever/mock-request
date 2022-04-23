@@ -16,6 +16,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_23_103850) do
 
   create_table "clients", force: :cascade do |t|
     t.string "url"
+    t.boolean "disabled", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
