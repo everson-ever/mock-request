@@ -8,7 +8,7 @@ class Api::V1::RoutesController < ApplicationController
     sleep(endpoint.delay)
 
     render render_type => endpoint.response_body,
-           status: endpoint.status
+           status: endpoint.status_code
   end
 
   private
@@ -20,7 +20,7 @@ class Api::V1::RoutesController < ApplicationController
   def endpoint
     client.endpoints.where(
       endpoint: "/#{params[:endpoint]}",
-      method: request.method
+      request_method: request.request_method
     ).first
   end
 

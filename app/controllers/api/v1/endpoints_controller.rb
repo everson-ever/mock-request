@@ -16,9 +16,9 @@ class Api::V1::EndpointsController < ApplicationController
   def endpoint
     Endpoint.new(
       endpoint: endpoint_params[:endpoint],
-      method: endpoint_params[:method],
+      request_method: endpoint_params[:request_method],
       content_type: endpoint_params[:content_type],
-      status: endpoint_params[:status],
+      status_code: endpoint_params[:status_code],
       delay: endpoint_params[:delay],
       response_body: endpoint_params[:response_body],
       client: client
@@ -26,8 +26,8 @@ class Api::V1::EndpointsController < ApplicationController
   end
 
   def endpoint_params
-    params.permit(:endpoint, :method,
-      :content_type, :status, :delay, :response_body, :client)
+    params.permit(:endpoint, :request_method,
+      :content_type, :status_code, :delay, :response_body, :client)
   end
 
   def client

@@ -14,13 +14,13 @@ class Endpoint < ApplicationRecord
   before_validation :response_to_xml,  if: :content_type_xml?
   before_validation :response_to_text, if: :text_plain?
 
-  validates :endpoint, :method, :content_type,
+  validates :endpoint, :request_method, :content_type,
     :response_body, :client, presence: true
 
-  validates :method, inclusion: { in: METHODS }
+  validates :request_method, inclusion: { in: METHODS }
   validates :content_type, inclusion: { in: CONTENT_TYPES }
 
-  validates :endpoint, uniqueness: { scope: %i[client method] }
+  validates :endpoint, uniqueness: { scope: %i[client request_method] }
 
   validates :delay, numericality: {
     greater_than_or_equal_to: 0,

@@ -22,9 +22,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_23_103850) do
 
   create_table "endpoints", force: :cascade do |t|
     t.string "endpoint", null: false
-    t.string "method", null: false
+    t.string "request_method", null: false
     t.string "content_type", null: false
-    t.integer "status", default: 200
+    t.integer "status_code", default: 200
     t.string "response_body"
     t.integer "delay", default: 0
     t.bigint "client_id", null: false
