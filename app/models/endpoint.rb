@@ -18,7 +18,7 @@ class Endpoint < ApplicationRecord
   validates :request_method, inclusion: { in: METHODS }
   validates :content_type, inclusion: { in: CONTENT_TYPES }
 
-  validates :endpoint, uniqueness: { scope: %i[client request_method] }
+  validates :endpoint, uniqueness: { scope: %i[client_id request_method] }
 
   validates :delay, numericality: {
     greater_than_or_equal_to: 0,
