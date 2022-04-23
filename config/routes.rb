@@ -1,6 +1,22 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  root to: "api/v1/home#index"
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+  namespace :api do
+    namespace :v1 do
+      scope ":client" do
+        get ":endpoint", to: "routes#index",
+          constraints: { endpoint: /[0-z\.\/\-\_\?]+/ }
+      end
+
+      scope "clients" do
+        get ":url", to: "clients#show"
+        post "", to: "clients#create"
+      end
+
+      scope "endpoints" do
+        post "", to: "endpoints#create"
+        delete ":client/:id", to: "endpoints#destroy"
+      end
+    end
+  end
 end
