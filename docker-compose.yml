@@ -1,0 +1,60 @@
+version: '3.6'
+
+services:
+  mock-api:
+    container_name: MOCK-REQUEST
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: dev.Dockerfile
+    depends_on: 
+      postgres:
+        condition: service_healthy
+    ports: 
+      - 3000:3000
+    networks: 
+      - app-tunnel
+    volumes: 
+      - ./:/app
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+  postgres:
+    container_name: POSTGRES-MOCK-REQUEST
+    image: postgres:alpine
+    environment:
+    - "POSTGRES_USER=postgres"
+    - "POSTGRES_PASSWORD=postgres"
+    ports:
+      - "5433:5432"
+    networks: 
+      - app-tunnel                    
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - postgres_volume:/var/lib/postgresql/data
+  pgadmin:
+    container_name: PGADMIN-MOCK-REQUEST
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "admin@pgadmin.com"
+      PGADMIN_DEFAULT_PASSWORD: "root"
+    ports:
+      - "16543:80"
+    networks: 
+      - app-tunnel
+    depends_on: 
+      postgres:
+        condition: service_healthy
+networks: 
+  app-tunnel:
+    driver: bridge
+
+volumes:
+  postgres_volume:
