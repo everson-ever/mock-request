@@ -44,6 +44,62 @@ RSpec.describe Endpoint, type: :model do
         is_greater_than_or_equal_to(0).is_less_than_or_equal_to(5)
     }
 
+    describe "when missing attributes" do
+      describe "when missing endpoint" do
+        before do
+          endpoint.endpoint = nil
+
+          endpoint.valid?
+        end
+
+        let(:error_message) { {:endpoint=>["can't be blank"]} }
+
+        it { expect(endpoint).not_to be_valid }
+        it { expect(endpoint.errors.messages).to eq(error_message) }
+      end
+
+      describe "when missing request_method" do
+        before do
+          endpoint.request_method = nil
+
+          endpoint.valid?
+        end
+
+        let(:error_message) { {:request_method=>["can't be blank", "is not included in the list"]} }
+
+        it { expect(endpoint).not_to be_valid }
+        it { expect(endpoint.errors.messages).to eq(error_message) }
+      end
+
+      describe "when missing content_type" do
+        before do
+          endpoint.content_type = nil
+
+          endpoint.valid?
+        end
+
+        let(:error_message) do
+          {:content_type=>["can't be blank", "is not included in the list"]}
+        end
+
+        it { expect(endpoint).not_to be_valid }
+        it { expect(endpoint.errors.messages).to eq(error_message) }
+      end
+      
+      describe "when missing client" do
+        before do
+          endpoint.client = nil
+
+          endpoint.valid?
+        end
+
+        let(:error_message) { {:client=>["must exist", "can't be blank"]} }
+
+        it { expect(endpoint).not_to be_valid }
+        it { expect(endpoint.errors.messages).to eq(error_message) }
+      end
+    end
+
     describe "when content_type is application/xml" do
       describe "when response_body is a valid xml" do
         before do
