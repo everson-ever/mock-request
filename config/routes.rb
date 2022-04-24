@@ -3,8 +3,8 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      scope ":client" do
-        get ":endpoint", to: "routes#index",
+      scope "routes" do
+        get ":client/:endpoint", to: "routes#index",
           constraints: { endpoint: /[0-z\.\/\-\_\?]+/ }
       end
 
