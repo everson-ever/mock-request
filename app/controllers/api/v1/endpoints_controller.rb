@@ -14,7 +14,7 @@ class Api::V1::EndpointsController < ApplicationController
   private
 
   def endpoint
-    Endpoint.new(
+    @endpoint ||= Endpoint.new(
       endpoint: endpoint_params[:endpoint],
       request_method: endpoint_params[:request_method],
       content_type: endpoint_params[:content_type],
