@@ -5,9 +5,9 @@ RSpec.describe "Clients", type: :request do
   let(:endpoint) { build(:endpoint, client: client) }
 
   describe "GET /clients" do
-    before { get "/api/v1/clients/#{client.url}" }
-
     describe "when client don't exists" do
+      before { get "/api/v1/clients/#{client.url}" }
+
       it "shoul returns empty array" do
         json_body = JSON.parse(response.body)
         expect(json_body).to eq([])
