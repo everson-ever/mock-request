@@ -1,11 +1,10 @@
 class Api::V1::RoutesController < ApplicationController
   def index
-    if endpoint.blank?
-      return render json: { message: "url not found" },
-                    status: :not_found
+    if client.blank? || endpoint.blank?
+      return render json: url_not_found, status: :not_found
     end
 
-    sleep(endpoint.delay)
+    sleep endpoint.delay
 
     render render_type => endpoint.response_body,
            status: endpoint.status_code
@@ -14,7 +13,7 @@ class Api::V1::RoutesController < ApplicationController
   private
 
   def client
-    @client ||= Client.find_by(url: params[:client])
+    @client = Client.find_by(url: params[:client])
   end
 
   def endpoint
@@ -26,5 +25,9 @@ class Api::V1::RoutesController < ApplicationController
 
   def render_type
     endpoint.render_type
+  end
+
+  def url_not_found
+    { message: "url not found" }
   end
 end
