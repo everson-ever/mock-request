@@ -11,7 +11,7 @@ services:
       postgres:
         condition: service_healthy
     ports: 
-      - 3000:3000
+      - 3005:3005
     networks: 
       - app-tunnel
     volumes: 
@@ -46,7 +46,7 @@ services:
       PGADMIN_DEFAULT_EMAIL: "admin@pgadmin.com"
       PGADMIN_DEFAULT_PASSWORD: "root"
     ports:
-      - "16543:80"
+      - "16553:80"
     networks: 
       - app-tunnel
     depends_on: 

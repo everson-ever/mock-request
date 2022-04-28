@@ -8,4 +8,4 @@ fi
 
 rails db:create
 rails db:migrate
-rails server -b 0.0.0.0
+rails server -p 3005 -b 0.0.0.0
