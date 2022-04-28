@@ -120,10 +120,9 @@ RSpec.describe "Routes", type: :request do
 
       let(:invalid_client_url) { "invalid-client-url" }
       let(:invalid_endpoint) { "/invalid-endpoint" }
-      let(:error_message) { { "message" => "url not found" } }
+      let(:error_message) { { message: "url not found" } }
 
       it "shoud return error message" do
-        json_body = JSON.parse(response.body)
         expect(json_body).to eq(error_message)
       end
 
@@ -137,10 +136,9 @@ RSpec.describe "Routes", type: :request do
       end
 
       let(:invalid_endpoint) { "/invalid-endpoint" }
-      let(:error_message) { { "message" => "url not found" } }
+      let(:error_message) { { message: "url not found" } }
 
       it "shoud return error message" do
-        json_body = JSON.parse(response.body)
         expect(json_body).to eq(error_message)
       end
 
