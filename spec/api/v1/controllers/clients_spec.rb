@@ -9,7 +9,6 @@ RSpec.describe "Clients", type: :request do
       before { get "/api/v1/clients/#{client.url}" }
 
       it "shoul returns empty array" do
-        json_body = JSON.parse(response.body)
         expect(json_body).to eq([])
       end
     end
@@ -26,8 +25,7 @@ RSpec.describe "Clients", type: :request do
         end
 
         it "returnses endpoints" do
-          json_body = JSON.parse(response.body)
-          expect(json_body.first["id"]).to eq(endpoint.id)
+          expect(json_body.first[:id]).to eq(endpoint.id)
         end
       end
 
@@ -40,7 +38,6 @@ RSpec.describe "Clients", type: :request do
           end
 
           it "returnses endpoints" do
-            json_body = JSON.parse(response.body)
             expect(json_body).to eq([])
           end
         end
@@ -52,33 +49,27 @@ RSpec.describe "Clients", type: :request do
     before { post "/api/v1/clients" }
 
     it "have key id" do
-      json_body = JSON.parse(response.body)
-      expect(json_body).to have_key("id")
+      expect(json_body).to have_key(:id)
     end
 
     it "have key url" do
-      json_body = JSON.parse(response.body)
-      expect(json_body).to have_key("url")
+      expect(json_body).to have_key(:url)
     end
 
     it "have key disabled" do
-      json_body = JSON.parse(response.body)
-      expect(json_body).to have_key("disabled")
+      expect(json_body).to have_key(:disabled)
     end
 
     it "have key created_at" do
-      json_body = JSON.parse(response.body)
-      expect(json_body).to have_key("created_at")
+      expect(json_body).to have_key(:created_at)
     end
 
     it "have key updated_at" do
-      json_body = JSON.parse(response.body)
-      expect(json_body).to have_key("updated_at")
+      expect(json_body).to have_key(:updated_at)
     end
 
     it "creates with disabled equal false" do
-      json_body = JSON.parse(response.body)
-      expect(json_body["disabled"]).to be_falsy
+      expect(json_body[:disabled]).to be_falsy
     end
   end
 end
