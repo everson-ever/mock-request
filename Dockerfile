@@ -42,5 +42,5 @@ RUN bundle install
 
 COPY . $INSTALL_PATH
 
-EXPOSE 3000
+EXPOSE 3005
 CMD ["rails", "server", "-b", "0.0.0.0"]
