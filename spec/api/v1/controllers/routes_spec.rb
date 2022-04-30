@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe "Routes", type: :request do
   let(:client) { build(:client) }
   let(:endpoint) { build(:endpoint, client: client) }
+  let(:url) { "/api/v1/routes/#{client.url}#{endpoint.endpoint}" }
 
   describe "GET /routes" do
     describe "when full url exists (client and endpoint)" do
@@ -13,7 +14,7 @@ RSpec.describe "Routes", type: :request do
             endpoint.response_body = "{'name': 'mock'}"
             endpoint.save
 
-            get "/api/v1/routes/#{client.url}#{endpoint.endpoint}"
+            get url
           end
 
           it { expect(response.body).to eq(endpoint.response_body) }
@@ -26,7 +27,7 @@ RSpec.describe "Routes", type: :request do
             endpoint.response_body = "<name>Mock</name>"
             endpoint.save
 
-            get "/api/v1/routes/#{client.url}#{endpoint.endpoint}"
+            get url
           end
 
           it { expect(response.body).to eq(endpoint.response_body) }
@@ -39,7 +40,7 @@ RSpec.describe "Routes", type: :request do
             endpoint.response_body = "text"
             endpoint.save
 
-            get "/api/v1/routes/#{client.url}#{endpoint.endpoint}"
+            get url
           end
 
           it { expect(response.body).to eq(endpoint.response_body) }
@@ -53,7 +54,7 @@ RSpec.describe "Routes", type: :request do
             endpoint.status_code = 200
             endpoint.save
 
-            get "/api/v1/routes/#{client.url}#{endpoint.endpoint}"
+            get url
           end
 
           it { expect(response.status).to match(endpoint.status_code) }
@@ -64,7 +65,7 @@ RSpec.describe "Routes", type: :request do
             endpoint.status_code = 400
             endpoint.save
 
-            get "/api/v1/routes/#{client.url}#{endpoint.endpoint}"
+            get url
           end
 
           it { expect(response.status).to match(endpoint.status_code) }
@@ -75,7 +76,7 @@ RSpec.describe "Routes", type: :request do
             endpoint.status_code = 500
             endpoint.save
 
-            get "/api/v1/routes/#{client.url}#{endpoint.endpoint}"
+            get url
           end
 
           it { expect(response.status).to match(endpoint.status_code) }
@@ -88,7 +89,7 @@ RSpec.describe "Routes", type: :request do
             endpoint.delay = 1
             endpoint.save
 
-            get "/api/v1/routes/#{client.url}#{endpoint.endpoint}"
+            get url
           end
 
           it {
@@ -102,7 +103,7 @@ RSpec.describe "Routes", type: :request do
             endpoint.delay = 3
             endpoint.save
 
-            get "/api/v1/routes/#{client.url}#{endpoint.endpoint}"
+            get url
           end
 
           it {
@@ -120,11 +121,6 @@ RSpec.describe "Routes", type: :request do
 
       let(:invalid_client_url) { "invalid-client-url" }
       let(:invalid_endpoint) { "/invalid-endpoint" }
-      let(:error_message) { { message: "url not found" } }
-
-      it "shoud return error message" do
-        expect(json_body).to eq(error_message)
-      end
 
       it { expect(response.status).to be(404) }
     end
@@ -136,11 +132,6 @@ RSpec.describe "Routes", type: :request do
       end
 
       let(:invalid_endpoint) { "/invalid-endpoint" }
-      let(:error_message) { { message: "url not found" } }
-
-      it "shoud return error message" do
-        expect(json_body).to eq(error_message)
-      end
 
       it { expect(response.status).to be(404) }
     end
