@@ -20,7 +20,7 @@ module RouteManager
 
     def endpoint
       @endpoint ||= client.endpoints.find_by(
-        endpoint: "/#{@endpoint_param}",
+        endpoint: @endpoint_param,
         request_method: @method
       )
     end
