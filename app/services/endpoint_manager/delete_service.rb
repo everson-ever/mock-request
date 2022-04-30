@@ -24,7 +24,7 @@ module EndpointManager
     end
 
     def slash
-      "/" unless @params[:endpoint].first == "/"  
+      "/" unless @params[:endpoint].first == "/"
     end
   end
 end
