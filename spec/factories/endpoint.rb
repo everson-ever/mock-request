@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :endpoint do
-    endpoint { '/server/a/users' }
+    endpoint { 'server/a/users' }
     request_method { 'GET' }
     content_type { 'text/plain' }
     status_code { 200 }

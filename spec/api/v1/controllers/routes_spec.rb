@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe "Routes", type: :request do
   let(:client) { build(:client) }
   let(:endpoint) { build(:endpoint, client: client) }
-  let(:url) { "/api/v1/routes/#{client.url}#{endpoint.endpoint}" }
+  let(:url) { "/api/v1/routes/#{client.url}/#{endpoint.endpoint}" }
 
   describe "GET /routes" do
     describe "when full url exists (client and endpoint)" do
@@ -116,11 +116,11 @@ RSpec.describe "Routes", type: :request do
 
     describe "when client dont exists" do
       before do
-        get "/api/v1/routes/#{invalid_client_url}#{invalid_endpoint}"
+        get "/api/v1/routes/#{invalid_client_url}/#{invalid_endpoint}"
       end
 
       let(:invalid_client_url) { "invalid-client-url" }
-      let(:invalid_endpoint) { "/invalid-endpoint" }
+      let(:invalid_endpoint) { "invalid-endpoint" }
 
       it { expect(response.status).to be(404) }
     end
@@ -128,10 +128,10 @@ RSpec.describe "Routes", type: :request do
     describe "when client exists and endpoint dont exists" do
       before do
         client.save
-        get "/api/v1/routes/#{client.url}#{invalid_endpoint}"
+        get "/api/v1/routes/#{client.url}/#{invalid_endpoint}"
       end
 
-      let(:invalid_endpoint) { "/invalid-endpoint" }
+      let(:invalid_endpoint) { "invalid-endpoint" }
 
       it { expect(response.status).to be(404) }
     end
