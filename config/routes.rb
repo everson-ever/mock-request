@@ -15,7 +15,8 @@ Rails.application.routes.draw do
 
       scope "endpoints" do
         post "", to: "endpoints#create"
-        delete ":client/:id", to: "endpoints#destroy"
+        delete ":request_method/:client/:endpoint", to: "endpoints#destroy",
+          constraints: { endpoint: /[0-z\.\/\-\_\?]+/ }
       end
     end
   end
