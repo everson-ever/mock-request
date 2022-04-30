@@ -1,33 +1,34 @@
 class Api::V1::RoutesController < ApplicationController
+  before_action :route_get!, only: [:index]
+  before_action :delay, only: [:index]
+
   def index
-    if client.blank? || endpoint.blank?
-      return render json: url_not_found, status: :not_found
-    end
-
-    sleep endpoint.delay
-
-    render render_type => endpoint.response_body,
-           status: endpoint.status_code
+    render @route.render_type => @route.response_body,
+           status: @route.status_code
   end
 
   private
 
-  def client
-    @client = Client.find_by(url: params[:client])
+  def route_get!
+    @route = route_action_service
+
+    return render json: {}, status: :not_found if @route.blank?
   end
 
-  def endpoint
-    client.endpoints.where(
-      endpoint: "/#{params[:endpoint]}",
-      request_method: request.request_method
-    ).first
+  def delay
+    sleep @route.delay
   end
 
-  def render_type
-    endpoint.render_type
+  def route_action_service
+    route_service.
+      call(params[:client], params[:endpoint], method)
   end
 
-  def url_not_found
-    { message: "url not found" }
+  def route_service
+    "RouteManager::#{method.titleize}RouteService".constantize
+  end
+
+  def method
+    request.request_method
   end
 end
