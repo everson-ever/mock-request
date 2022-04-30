@@ -18,13 +18,9 @@ module EndpointManager
 
     def endpoint
       @endpoint ||= client.endpoints.find_by(
-        endpoint: "#{slash}#{@params[:endpoint]}",
+        endpoint: (@params[:endpoint]).to_s,
         request_method: @params[:request_method]
       )
-    end
-
-    def slash
-      "/" unless @params[:endpoint].first == "/"
     end
   end
 end

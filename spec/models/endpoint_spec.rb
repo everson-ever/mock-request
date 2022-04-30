@@ -52,7 +52,7 @@ RSpec.describe Endpoint, type: :model do
           endpoint.valid?
         end
 
-        let(:error_message) { {:endpoint=>["can't be blank"]} }
+        let(:error_message) { { endpoint: ["can't be blank"] } }
 
         it { expect(endpoint).not_to be_valid }
         it { expect(endpoint.errors.messages).to eq(error_message) }
@@ -65,7 +65,11 @@ RSpec.describe Endpoint, type: :model do
           endpoint.valid?
         end
 
-        let(:error_message) { {:request_method=>["can't be blank", "is not included in the list"]} }
+        let(:error_message) do
+          {
+            request_method: ["can't be blank", "is not included in the list"]
+          }
+        end
 
         it { expect(endpoint).not_to be_valid }
         it { expect(endpoint.errors.messages).to eq(error_message) }
@@ -79,13 +83,13 @@ RSpec.describe Endpoint, type: :model do
         end
 
         let(:error_message) do
-          {:content_type=>["can't be blank", "is not included in the list"]}
+          { content_type: ["can't be blank", "is not included in the list"] }
         end
 
         it { expect(endpoint).not_to be_valid }
         it { expect(endpoint.errors.messages).to eq(error_message) }
       end
-      
+
       describe "when missing client" do
         before do
           endpoint.client = nil
@@ -93,7 +97,7 @@ RSpec.describe Endpoint, type: :model do
           endpoint.valid?
         end
 
-        let(:error_message) { {:client=>["must exist", "can't be blank"]} }
+        let(:error_message) { { client: ["must exist", "can't be blank"] } }
 
         it { expect(endpoint).not_to be_valid }
         it { expect(endpoint.errors.messages).to eq(error_message) }

@@ -12,6 +12,8 @@ class Endpoint < ApplicationRecord
   before_validation :response_to_xml,  if: :content_type_xml?
   before_validation :response_to_text, if: :text_plain?
 
+  before_create :remove_slash_from_endpoint
+
   validates :endpoint, :request_method, :content_type,
     :client, presence: true
 
@@ -27,5 +29,13 @@ class Endpoint < ApplicationRecord
 
   def render_type
     content_type.split("/").last.to_sym
+  end
+
+  private
+
+  def remove_slash_from_endpoint
+    return unless endpoint.first == "/"
+
+    endpoint.slice!("/")
   end
 end
