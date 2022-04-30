@@ -11,7 +11,9 @@ class Api::V1::EndpointsController < ApplicationController
 
   def update; end
 
-  def destroy; end
+  def destroy
+    render json: EndpointManager::DeleteService.call(params), status: 204
+  end
 
   private
 
