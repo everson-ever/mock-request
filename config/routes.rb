@@ -6,6 +6,9 @@ Rails.application.routes.draw do
       scope "routes" do
         get ":client/:endpoint", to: "routes#index",
           constraints: { endpoint: /[0-z\.\/\-\_\?]+/ }
+
+        post ":client/:endpoint", to: "routes#store",
+          constraints: { endpoint: /[0-z\.\/\-\_\?]+/ }
       end
 
       scope "clients" do
