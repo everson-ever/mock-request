@@ -1,24 +1,15 @@
-# README
+# Mock Request API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Make dynamic urls to response some body in some `content_type`. This is an application from developer to developer.<br>
 
-Things you may want to cover:
 
-* Ruby version
+### Configuration
 
-* System dependencies
+- Install [Docker](https://www.docker.com/#)  and [docker-compose](https://docs.docker.com/compose/install/)
+- Run inside project `docker-compose up -d`
 
-* Configuration
+<br>
 
-* Database creation
+The application will be run in `http://localhost:3005`
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+  
