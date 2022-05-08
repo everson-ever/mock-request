@@ -3,16 +3,19 @@ class Api::V1::RoutesController < ApplicationController
   before_action :delay
 
   def index
-    render @route.render_type => @route.response_body,
-           status: @route.status_code
+    render_response
   end
 
   def store
-    render @route.render_type => @route.response_body,
-           status: @route.status_code
+    render_response
   end
 
   private
+
+  def render_response
+    render @route.render_type => @route.response_body,
+           status: @route.status_code
+  end
 
   def route_action!
     @route = route_action_service
