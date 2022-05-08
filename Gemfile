@@ -37,6 +37,7 @@ gem "bootsnap", require: false
 # gem "rack-cors"
 group :test do
   gem "database_cleaner"
+  gem 'simplecov', require: false
 end
 
 group :development, :test do
