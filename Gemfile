@@ -61,3 +61,5 @@ group :development do
   # gem "spring"
 end
 
+gem "google-cloud-storage", "~> 1.8", require: false
+
