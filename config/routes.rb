@@ -21,6 +21,13 @@ Rails.application.routes.draw do
         delete ":request_method/:client/:endpoint", to: "endpoints#destroy",
           constraints: { endpoint: /[0-z\.\/\-\_\?]+/ }
       end
+
+      scope "uploads" do
+        get ":endpoint", to: "uploads#show",
+          constraints: { endpoint: /[0-z\.\/\-\_\?]+/ }
+
+        post "", to: "uploads#create"
+      end
     end
   end
 end
