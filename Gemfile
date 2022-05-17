@@ -62,4 +62,5 @@ group :development do
 end
 
 gem "google-cloud-storage", "~> 1.8", require: false
+gem 'active_storage_validations'
 
