@@ -8,9 +8,11 @@ class Api::V1::UploadsController < ApplicationController
   end
 
   def create
-    upload = Upload.create(upload_params) 
+    @upload = Upload.new(upload_params)
+
+    return errors_messages if !@upload.save
     
-    render json: upload.endpoint
+    render json: @upload.endpoint
   end
 
   private
@@ -25,6 +27,10 @@ class Api::V1::UploadsController < ApplicationController
 
   def file_not_found
     return render json: {}, status: 404 if @upload.blank?
+  end
+
+  def errors_messages
+    render json: @upload.errors.messages
   end
 
   def set_active_storage_host
