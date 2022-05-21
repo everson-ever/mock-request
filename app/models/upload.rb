@@ -7,7 +7,7 @@ class Upload < ApplicationRecord
 
   before_validation :set_params
 
-  validates :file, :url_hash, :filename, :endpoint, presence: true
+  validates :file, :url_hash, presence: true
   validates :url_hash, uniqueness: true
 
   validates :file, size: { 
