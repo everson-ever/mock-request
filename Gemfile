@@ -54,6 +54,7 @@ group :development, :test do
   gem "rubocop-rails", "~> 2.4.2"
   gem "rubocop-rspec", "~> 1.38.0"
   gem "shoulda-matchers", "~> 5.1.0"
+  gem 'dotenv-rails'
 end
 
 group :development do

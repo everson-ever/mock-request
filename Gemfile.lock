@@ -99,6 +99,10 @@ GEM
     digest-crc (0.6.4)
       rake (>= 12.0.0, < 14.0.0)
     docile (1.4.0)
+    dotenv (2.7.6)
+    dotenv-rails (2.7.6)
+      dotenv (= 2.7.6)
+      railties (>= 3.2)
     erubi (1.10.0)
     factory_bot (6.2.1)
       activesupport (>= 5.0.0)
@@ -306,6 +310,7 @@ DEPENDENCIES
   byebug
   database_cleaner
   debug
+  dotenv-rails
   factory_bot_rails
   ffaker
   google-cloud-storage (~> 1.8)
