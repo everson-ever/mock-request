@@ -1,12 +1,37 @@
 require "rails_helper"
 
 RSpec.describe "Uploads", type: :request do
+  let(:upload) { create(:upload) }
+
   let(:small_file) do
     fixture_file_upload("less_than_10_mega.mp3")
   end
 
   let(:big_file) do
     fixture_file_upload("bigger_than_10_mega.mp4")
+  end
+
+  describe "GET /uploads/:endpoint" do
+    describe "when file exists" do
+      before do
+        upload
+
+        get "/api/v1/uploads/#{upload.endpoint}"
+      end
+
+      it { expect(response.body).to match(upload.filename) }
+    end
+
+    describe "when file don't exists" do
+      before do
+        get "/api/v1/uploads/#{endpoint}"
+      end
+
+      let(:endpoint) { "endpoint.txt" }
+
+      it { expect(response.status).to eq(404) }
+      it { expect(json_body).to eq({}) }
+    end
   end
 
   describe "POST /uploads" do
