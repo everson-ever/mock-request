@@ -10,8 +10,8 @@ class Api::V1::UploadsController < ApplicationController
   def create
     @upload = Upload.new(upload_params)
 
-    return errors_messages if !@upload.save
-    
+    return errors_messages unless @upload.save
+
     render json: @upload.endpoint
   end
 
@@ -35,6 +35,6 @@ class Api::V1::UploadsController < ApplicationController
 
   def set_active_storage_host
     ActiveStorage::Current.url_options =
-      { host: 'http://localhost:3005' }
+      { host: "http://localhost:3005" }
   end
 end

@@ -10,7 +10,7 @@ class Upload < ApplicationRecord
   validates :file, :url_hash, presence: true
   validates :url_hash, uniqueness: true
 
-  validates :file, size: { 
+  validates :file, size: {
     less_than: MAX_FILE_SIZE.megabytes,
     message: "must be less than #{MAX_FILE_SIZE}MB in size"
   }
