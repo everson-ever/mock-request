@@ -35,9 +35,5 @@ COPY Gemfile.lock Gemfile.lock
 RUN gem install bundler
 RUN bundle install
 
-
 COPY . $INSTALL_PATH
-RUN chmod 700 entrypoint.sh
-
 EXPOSE 3005
-ENTRYPOINT ["sh", "entrypoint.sh"]

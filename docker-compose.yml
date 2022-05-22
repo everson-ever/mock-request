@@ -3,7 +3,7 @@ version: '3.6'
 services:
   mock-api:
     container_name: MOCK-REQUEST
-    restart: unless-stopped
+    command: ["sleep","infinity"]
     build:
       context: .
       dockerfile: dev.Dockerfile

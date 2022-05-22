@@ -54,10 +54,14 @@ group :development, :test do
   gem "rubocop-rails", "~> 2.4.2"
   gem "rubocop-rspec", "~> 1.38.0"
   gem "shoulda-matchers", "~> 5.1.0"
+  gem 'dotenv-rails'
 end
 
 group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
 end
+
+gem "google-cloud-storage", "~> 1.8", require: false
+gem 'active_storage_validations'
 
